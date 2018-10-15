@@ -2,7 +2,7 @@
 
 This is the website for the artifact accompanying the paper:
 
-A Separation Logic for Concurrent Randomized Programs
+A Separation Logic for Concurrent Randomized Programs  
 Joseph Tassarotti, Robert Harper
 
 The artifact is a Coq development which formalizes the results described in the
@@ -13,6 +13,8 @@ links from definitions/theorems in the paper to where they occur in the
 development, displayed using HTML generated via coqdoc.
 
 ## Compiling from Source
+
+[Download source (tar.gz)](https://github.com/jtassarotti/polaris/releases/download/vAEC/iris-coq-prob.tar.gz)
 
 This version is known to compile with the following opam packages:
 
@@ -30,6 +32,8 @@ which describes how to build, access the HTML outline, and discusses axioms
 used.
 
 ## Virtual Machine
+
+[Download virtual machine (.ova)](https://github.com/jtassarotti/polaris/releases/download/vAEC/polaris-vm.ova)
 
 The virtual machine image should boot directly into a user called "aec"
 (password is "aec").  On the desktop you will see a folder called
@@ -66,7 +70,7 @@ logic slightly. In the original paper, there was an additional assumption on the
 soundness statement of the logic which required the scheduler to be
 "well-formed" (which said that it only tried to select threads that could take a
 step). This assumption was not actually necessary so we have removed it. In
-addition. schedulers used to be functions of type Trace -> Option nat instead of
+addition, schedulers used to be functions of type Trace -> Option nat instead of
 Trace -> nat, meaning that they could return None (which represented not
 selecting a thread to step), in which case the program executed a stutter
 step. This additional flexibility is not really needed now that we have removed
