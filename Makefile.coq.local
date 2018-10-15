@@ -1,0 +1,5 @@
+uninstall::
+	@# This makes sure we also delete stale files in the destination directory
+	$(HIDE)df="$(COQLIBINSTALL)/`$(COQMKFILE) -destination-of "theories/base.v" $(COQLIBS)`" &&\
+	echo "RM in $$df" &&\
+	if [ -d "$$df" ]; then find "$$df" \( -name "*.vo" -o -name "*.v" -o -name "*.glob" -o \( -type d -empty \) \) -print -delete; fi

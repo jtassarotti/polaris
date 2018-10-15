@@ -1,0 +1,214 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="html/coqdoc.css" rel="stylesheet" type="text/css" />
+<title>Outline</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+<div id="toc">
+
+<h2> Dependencies and Building </h2>
+<p> Dependencies (listed by opam package name and version) </p>
+
+<ul class="doclist">
+<li> coq                       8.7.0 </li>
+<li> coq-bignums               8.7.0
+<li> coq-coquelicot            3.0.1
+<li> coq-flocq                 2.6.0
+<li> coq-interval              3.3.0
+<li> coq-mathcomp-ssreflect    1.6.4
+<li> coq-stdpp                 1.1.0
+</ul>
+We have not tested compilation under other configurations.
+
+Proof scripts should build by simply typing "make".
+
+<h2> Outline by Paper Sections </h2>
+
+<p style="color:#FF0000"><b>The distribution should come with the CoqDoc documentation prebuilt. But if you deleted the html/ subfolder or ran "make clean" you may need to run "make html" to re-build it, or else none of the links will work. </b></p>
+
+<p> If you are unfamiliar with this kind of CoqDoc HTML output, please note that terms occurring in a theorem or definition are usually also made into links to where those terms are defined. So, if you click on something like Karp's theorem below which mentions a function called D, you can click on the D to get to the definition of D. </p>
+
+<ul class="doclist">
+<li> Section 2: </li>
+
+  <ul class="doclist">
+    <li> <a href="html/discprob.prob.prob.html#distrib">Probability Distributions</a></li>
+    <li> <a href="html/discprob.prob.prob.html#rvar">Random Variables</a></li>
+    <li> <a href="html/discprob.prob.prob.html#Ex">Expectation</a></li>
+    <li> <a href="html/discprob.prob.finite.html#SeriesC_fin_big">Proof that finite expectations are equal to ssreflect sums</a></li>
+    <li> <a href="html/discprob.monad.monad.html#ldist">Probabilistic Choice Monad (ldist)</a></li>
+    <li> <a href="html/discprob.monad.monad.html#dist_bind">Bind</a> (Definitions in paper are just the definitions of the list of outcomes, here we give the necessary proofs that the outcome weights are all positive and the sum is equal to 1)</li>
+    <li> <a href="html/discprob.monad.monad.html#dist_ret">Ret</a></li>
+    <li> <a href="html/discprob.monad.monad.html#ldist_bind_ext">Some equational reasoning rules</a></li>
+    <li> <a href="html/discprob.monad.monad.html#Ex_mret_simpl">Rules for calculating expectations</a></li>
+    <li> <a href="html/discprob.monad.monad_hoare.html">Hoare-like rules</a></li>
+  </ul>
+
+<li> Section 3: </li>
+  <ul class="doclist">
+    <li> <a href="html/discprob.rec.karp.html#karp_bound_simple">Karp's theorem</a> (There is an extra parameter "P" that we use in these bounds which is useful for reasoning about examples where the bound only holds for a subset of inputs. Of course, this could be handled by using dependent types to restrict the "input" type to this subset, but we found it is nicer sometimes to have this parameter P instead.)</li>
+    <li> <a href="html/discprob.rec.span2.html#span_bound_simple">Extension of Karp's theorem to span</a></li>
+    <li> <a href="html/discprob.rec.work2.html#work_bound_simple">Extension of Karp's theorem to work</a></li>
+  </ul>
+<li> Section 4: </li>
+  <ul class="doclist">
+   <li> Sequential Quicksort: </li>
+   <ul class="doclist">
+      <li> <a href="html/discprob.monad.monad_cost.html">Cost Monad</a></li>
+      <li> <a href="html/discprob.monad.quicksort.html#qs">Code</a></li>
+      <li> <a href="html/discprob.monad.quicksort_correct.html#quicksort_correct">Correctness</a></li>
+      <li> <a href="html/discprob.monad.quicksort_cost.html#bound">General Bound</a></li>
+      <li> <a href="html/discprob.monad.quicksort_cost.html#concrete2">Numerical calculation</a></li>
+   </ul>
+  </ul>
+  
+
+  <ul class="doclist">
+   <li> Parallel Quicksort: </li>
+   <ul class="doclist">
+      <li> <a href="html/discprob.monad.monad_par.html">Cost Monad</a></li>
+      <li> <a href="html/discprob.monad.par_quicksort.html#qs">Code</a></li>
+      <li> <a href="html/discprob.monad.par_quicksort_correct.html#quicksort_correct">Correctness</a></li>
+      <li> <a href="html/discprob.monad.par_quicksort_cost.html#bound">General Bound</a></li>
+   </ul>
+  </ul>
+
+  <ul class="doclist">
+   <li> Binary Search Tree: </li>
+   <ul class="doclist">
+      <li> <a href="html/discprob.monad.bst.html#add_list_random">Code</a></li>
+      <li> <a href="html/discprob.monad.bst_correct.html">Correctness</a> (We show that the random insertion procedure is indeed equivalent to inserting the elements in some permutation)</li>
+      <li> <a href="html/discprob.monad.bst_height.html#bound">General Bound</a></li>
+      <li> <a href="html/discprob.monad.bst_height.html#concrete">Numerical calculation</a></li>
+   </ul>
+  </ul>
+  
+  <ul class="doclist">
+   <li> Leader Election: </li>
+   <ul class="doclist">
+      <li> <a href="html/discprob.monad.leader.html#leader_elect">Code</a></li>
+      <li> <a href="html/discprob.monad.leader_cost.html#bound">General Bound</a></li>
+      <li> <a href="html/discprob.monad.leader_cost.html#concrete_512">Numerical calculation</a></li>
+   </ul>
+  </ul>
+
+<li> Section 5: </li>
+  <ul class="doclist">
+      <li> <a href="html/discprob.rec.karp.html#karp_bound_sec.hinf_0">Extra hypothesis we needed about termination</a></li>
+      <li> <a href="html/discprob.rec.karp.html#D">Our modified D function</a></li>
+  </ul>
+</ul>
+
+<h2> Guide to Notable Files </h2>
+
+<ul class="doclist">
+<li> basic/ -- Some miscellaneous files that do not really belong
+  anywhere else: extensions to the ssreflect bigop library, 
+  tactics for converting between ssreflect nats and standard library nats,
+  etc. </li>
+
+<li> prob/ -- Basic library of results for discrete probability theory.
+
+  <ul class="doclist">
+  <li> <a href="html/discprob.prob.prob.html">prob.v</a>
+      -- Definition of distributions, random variables, and expectation. </li>
+  
+  <li> <a href="html/discprob.prob.finite.html">finite.v</a> 
+    -- Specialized lemmas for distributions on finite types </li>
+
+  <li> <a href="html/discprob.prob.rearrange.html">rearrange.v</a> -- Proof that absolutely convergent infinite series can be rearranged.
+    This is a matter of pure real analysis, but it is needed for showing that
+    countable series over a finite type must be equal to just a finite sum. </li>
+
+  <li> <a href="html/discprob.prob.double.html">double.v</a> -- Proof that "summable" double series can be arranged
+    without changing their value. This is again a matter of analysis,
+    but it is needed for some facts involving products of
+    distributions and alternate formulas for calculating expectation. </li>
+
+  <li> <a href="html/discprob.prob.stochastic_order.html">stochastic_order.v</a> -- Facts about distributional equality and
+    stochastic dominance.  Various rules showing you can convert a
+    stochastic recurrence phrased in terms of pr_eq into one involving
+    pr_gt (for instance). </li>
+  </ul>
+
+<li> rec/ -- Proofs of Karp's theorem and extensions, solutions to some
+  recurrences (abstractly stated as stochastic recurrences, not yet
+  tied to the code (that happens in the next section)) </li>
+
+  <ul class="doclist">
+  <li> <a href="html/discprob.rec.karp.html">karp.v</a> -- Karp's theorem </li>
+
+  <li> <a href="html/discprob.rec.span2.html">span2.v</a> -- Extension to binary span recurrences.</li>
+
+  <li> <a href="html/discprob.rec.work2.html">work2.v</a> -- Extension to binary work recurrences.</li>
+  
+  <li> <a href="html/discprob.rec.decreasing_rec.html">decreasing_rec.v</a> -- Some results about eventual termination of stochastic recurrence.</a>
+
+  <li> <a href="html/discprob.rec.leader_rec.html">leader_rec.v</a></a>, 
+       <a href="html/discprob.rec.quicksort_rec.html">quicksort_rec.v</a>,
+       <a href="html/discprob.rec.counter_rec.html">counter_rec.v</a>, 
+       <a href="html/discprob.rec.log_rec.html">log_rec.v</a>,
+       <a href="html/discprob.rec.quickselect_rec.html">quickselect_rec.v</a> -- solutions to various
+    recurrences, again, not yet tied to the code that they are derived from (see next section)</li>
+  </ul>
+
+<li> monad/ -- Definitions of probabilistic choice monads, various examples from paper. </li>
+  
+  <ul class="doclist">
+  <li> <a href="html/discprob.monad.monad.html">monad.v</a> -- probabilisitic choice monad.</li>
+  
+  <li> <a href="html/discprob.monad.monad_cost.html">monad_cost.v</a> -- sequential cost monad.</li>
+ 
+  <li> <a href="html/discprob.monad.monad_par.html">monad_par.v</a> -- parallel cost monad.</li>
+
+  <li> <a href="html/discprob.monad.monad_hoare.html">monad_hoare.v</a> -- Hoare-esque rules for reasoning about the monad.</li>
+
+  <li> <a href="html/discprob.monad.quicksort.html">quicksort.v</a> -- sequential quicksort implementation</li>
+
+  <li> <a href="html/discprob.monad.quicksort_correct.html">quicksort_correct.v</a> -- proof it sorts</li>
+
+  <li> <a href="html/discprob.monad.quicksort_cost.html">quicksort_cost.v</a> -- tail bound for number of comparisons for sequential quicksort.</li>
+
+
+  <li> <a href="html/discprob.monad.par_quicksort.html">par_quicksort.v</a> -- parallel quicksort implementation</li>
+
+  <li> <a href="html/discprob.monad.par_quicksort_correct.html">par_quicksort_correct.v</a> -- proof it sorts</li>
+
+  <li> <a href="html/discprob.monad.par_quicksort_cost.html">par_quicksort_cost.v</a> -- tail bound for span.</li>
+
+
+  <li> <a href="html/discprob.monad.bst.html">bst.v</a> -- construction of randomized BST</li>
+
+  <li> <a href="html/discprob.monad.bst_correct.html">bst_correct.v</a> -- proof that output of random insertion is
+    equivalent to inserting some permutation</li>
+
+  <li> <a href="html/discprob.monad.bst_height.html">bst_height.v</a> -- tail bound for height</li>
+
+
+  <li> <a href="html/discprob.monad.leader.html">leader.v</a> -- randomized leader election</li>
+
+  <li> <a href="html/discprob.monad.leader_cost.html">leader_cost.v</a> -- tail bound for number of rounds. </li>
+
+</ul>
+ <li> idxval/ -- This directory is unrelated to the development discussed in the paper. It includes results about the monad of indexed valuations due to Varacca and Winskel.
+</ul>
+</div>
+
+
+</div>
+
+
+</body>
+</html>

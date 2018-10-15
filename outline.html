@@ -1,0 +1,575 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<base href="html/">
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<style>
+#correspondence th, td {
+  padding: 10px;
+  border-bottom:1px solid black;
+}
+#correspondence table {
+  border-collapse: collapse; 
+}
+</style>
+  
+<title>Overview of Coq Development</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div id="toc">
+<h2> Correspondence Table </h2>
+
+<div id="correspondence">
+<table>
+  <tr>
+    <th>Definition/Lemma</th>
+    <th>Location in Paper</th>
+    <th>File(s)</th>
+    <th>Name in Formalization</th>
+    <th>Remarks</th>
+  </tr>
+
+  <tr>
+    <td> Indexed Valuation </td>
+    <td> Section 2.2 </td>
+    <td> <a href="discprob.idxval.ival.html">proba/theories/idxval/ival.v</a>,<br />
+         <a href="discprob.idxval.ival_dist.html">proba/theories/idxval/ival_dist.v</a>
+	 </td>
+    <td> <a href="discprob.idxval.ival.html#ival">ival</a>,
+         <a href="discprob.idxval.ival_dist.html#ivdist">ivdist</a>
+	 </td>
+    <td> We first define indexed valuations as a record type without the requirement that values sum to one, and then later define an "extended" version of the record in which there is an additional proof that values sum to 1. </td>
+  </tr> 
+
+  <tr>
+    <td> Equivalence of Indexed Valuations </td>
+    <td> Section 2.2 </td>
+    <td> <a href="discprob.idxval.ival.html">proba/theories/idxval/ival.v</a><br /> </td>
+    <td> <a href="discprob.idxval.ival.html#eq_ival">eq_ival</a>,
+         <a href="discprob.idxval.ival_dist.html#eq_ivd">eq_ivd</a> </td>
+    <td></td>
+  </tr> 
+
+  <tr>
+    <td> Probabilistice Choice between Indexed Valuations </td>
+    <td> Section 2.2 </td>
+    <td> <a href="discprob.idxval.ival_dist.html">proba/theories/idxval/ival_dist.v</a> </td>
+    <td> <a href="discprob.idxval.ival_dist.html#ivdplus">ivdplus</a> </td>
+    <td>In the formalization, this is defined in terms of simpler operations (<a href="discprob.idxval.ival.html#iplus">iplus</a> and <a href="discprob.idxval.ival.html#iscale">iscale</a>) as in the work of Varacca and Winskel, whereas the paper presents the "beta reduced" definition.</td>
+  </tr> 
+
+  <tr>
+    <td> Non-Empty Sets of Indexed Valuations </td>
+    <td> Section 2.2 </td>
+    <td> <a href="discprob.idxval.pival.html">proba/theories/idxval/pival.v</a><br />
+       <a href="discprob.idxval.pival_dist.html">proba/theories/idxval/pival_dist.v</a><br /> </td>
+    <td> <a href="discprob.idxval.pival.html#pival">pival</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist">pidist</a> </td>
+    <td>As with indexed valuations, we first define a version where every element of the set is merely an <a href="discprob.idxval.ival.html#ival">ival</a>, and another where their values must also sum to 1</td>
+  </tr> 
+
+  <tr>
+    <td> Equivalence/Subset Ordering for Sets of Indexed Valuations </td>
+    <td> Section 2.2 </td>
+    <td> <a href="discprob.idxval.pival.html">proba/theories/idxval/pival.v</a><br /> 
+         <a href="discprob.idxval.pival_dist.html">proba/theories/idxval/pival_dist.v</a><br /> </td>
+    <td> <a href="discprob.idxval.pival.html#eq_pival">eq_pival</a>,
+         <a href="discprob.idxval.pival.html#le_pival">le_pival</a>,
+         <a href="discprob.idxval.pival_dist.html#eq_pidist">eq_pidist</a>,
+         <a href="discprob.idxval.pival_dist.html#le_pidist">le_pidist</a> </td>
+    <td></td>
+  </tr> 
+
+  <tr>
+    <td> Equational Laws for Combined Monad </td>
+    <td> Section 2.2, Fig. 2 </td>
+    <td> <a href="discprob.idxval.pival_dist.html">proba/theories/idxval/pival_dist.v</a></td>
+    <td>
+      <a href="discprob.idxval.pival_dist.html#pidist_plus_comm">pidist_plus_comm</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_plus_choice1">pidist_plus_choice1</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_union_idemp">pidist_union_idemp</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_union_comm">pidist_union_comm</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_union_assoc">pidist_union_assoc</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_union_bind">pidist_union_bind</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_plus_bind">pidist_plus_bind</a>
+    </td>
+    <td> Various other laws are also described in this file, including the monad laws
+      (<a href="discprob.idxval.pival_dist.html#pidist_assoc">pidist_assoc</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_left_id">pidist_left_id</a>,
+      <a href="discprob.idxval.pival_dist.html#pidist_right_id">pidist_right_id</a>)
+    </td>
+  </tr> 
+
+  <tr>
+    <td> Monadic encoding of approximate counters </td>
+    <td> Section 2.3, Fig. 3 </td>
+    <td> <a href="iris.tests.approx_counter.faa_approx_counter.html">theories/tests/approx_counter/faa_approx_counter.v</a></td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#approx_incr">approx_incr</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#approx_n">approx_n</a>
+    </td>
+    <td> </td>
+  </tr> 
+
+  <tr>
+    <td> Expected value of indexed valuation </td>
+    <td> Section 2.4 </td>
+    <td> <a href="discprob.idxval.extrema.html">proba/theories/idxval/extrema.v</a></td>
+    <td>
+      <a href="discprob.idxval.extrema.html#Ex_ival">Ex_ival</a>,
+      <a href="discprob.idxval.extrema.html#ex_Ex_ival">ex_Ex_ival</a>,
+      <a href="discprob.idxval.extrema.html#is_Ex_ival">is_Ex_ival</a>,
+      <a href="discprob.idxval.extrema.html#Ex_ivd">Ex_ivd</a>,
+      <a href="discprob.idxval.extrema.html#ex_Ex_ivd">ex_Ex_ivd</a>,
+      <a href="discprob.idxval.extrema.html#is_Ex_ivd">is_Ex_ivd</a>,
+    </td>
+    <td> Recall that expected values may not exist (because they are infinite series). We follow what Boldo et al. do in their Coquelicot analysis library for infinite series: Ex_ival f I is a real number, which is equal to the expected value, if the expected value exists. ex_Ex_ival f I is a proposition stating stating this existence property, and is_Ex_ival f I v says that the expected value exists and is equal to v. <br /><br /> We first define these for ival that do not have probabilities summing to 1, then the _ivd variants are the versions with the latter restriction.
+    </td>
+  </tr> 
+
+  <tr>
+    <td> Minimal and Maximal Expected Values </td>
+    <td> Section 2.4 </td>
+    <td> <a href="discprob.idxval.extrema.html">proba/theories/idxval/extrema.v</a></td>
+    <td>
+      <a href="discprob.idxval.extrema.html#Ex_min">Ex_min</a>,
+      <a href="discprob.idxval.extrema.html#Ex_max">Ex_max</a>,
+      <a href="discprob.idxval.extrema.html#ex_Ex_ival">ex_Ex_extrema</a>,
+    </td>
+    <td> </td>
+  </tr> 
+
+  <tr>
+    <td> Rules for calculating extrema</td>
+    <td> Section 2.4, Fig. 4 </td>
+    <td> <a href="discprob.idxval.extrema.html">proba/theories/idxval/extrema.v</a></td>
+    <td>
+      <a href="discprob.idxval.extrema.html#Ex_min_mret">Ex_min_mret</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_plus_const_r">Ex_min_plus_const_r</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_scale_const">Ex_min_scale_const</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_pidist_plus">Ex_min_pidist_plus</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_comp">Ex_min_comp</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_bind_const_le">Ex_min_bind_const_le</a>,
+      <a href="discprob.idxval.extrema.html#Ex_min_bind_const_ge">Ex_min_bind_const_ge</a>
+    </td>
+    <td>As stated in the paper, the rules are given there without the side conditions about the existence/finiteness of extrema.</td>
+  </tr> 
+
+  <tr>
+    <td> Expected value of monadic specification of approximate counter</td>
+    <td> Section 2.4 </td>
+    <td> <a href="iris.tests.approx_counter.faa_approx_counter.html">theories/tests/approx_counter/faa_approx_counter.v</a></td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Ex_min_approx_incr">Ex_min_approx_incr</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Ex_min_approx_n">Ex_min_approx_n</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Ex_max_approx_incr">Ex_max_approx_incr</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Ex_max_approx_n">Ex_max_approx_n</a>
+    </td>
+    <td> </td>
+  </tr> 
+
+  <tr>
+    <td>Coarser equivalence relation on indexed valuations</td>
+    <td> Section 2.4, Fig. 5 </td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a><br />
+      <a href="discprob.idxval.irrel_coupling_alt.html">proba/theories/idxval/irrel_coupling_alt.v</a>
+    </td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_ivd">irrel_ivd</a>,
+      <a href="discprob.idxval.irrel_coupling_alt.html#irrel_ivd_alt">irrel_ivd_alt</a>,
+    </td>
+
+    <td>For historical reasons, much of the development uses irrel_ivd, which is
+    specified inductively using the rules in Fig. 5. However,
+    <a href="discprob.idxval.irrel_coupling_alt.html#irrel_ivd_alt">irrel_ivd_alt</a> show that this is equivalent to the definition used in the (revised) paper in terms of expected values of bounded functions.</td>
+  </tr> 
+
+  <tr>
+    <td>Coarser subset ordering on sets of indexed valuations</td>
+    <td>Section 2.4</td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a><br />
+    </td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist">irrel_pidist</a>,
+    </td>
+
+    <td> It is stated in Coq in terms of Ex_min instead of Ex_max, but see just
+    below for the Ex_max version.</td>
+  </tr> 
+
+  <tr>
+    <td>Rules for coarser subset ordering on sets of indexed valuations</td>
+    <td>Section 2.4, Fig. 6.</td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a><br /></td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_refl">irrel_pidist_refl</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_trans">irrel_pidist_trans</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_proper">irrel_pidist_proper</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_bind">irrel_pidist_bind</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_choice">irrel_pidist_choice</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_irrel">irrel_pidist_irrel</a>,
+    </td>
+    <td></td>
+  </tr> 
+
+  <tr>
+    <td>Lemma 2.1 </td>
+    <td>Section 2.4</td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a><br /></td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_bounded_supp_fun">
+	       irrel_bounded_supp_fun</a>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_pidist_bounded_supp_Ex_max">
+	       irrel_pidist_bounded_supp_Ex_max</a>
+    </td>
+    <td></td>
+  </tr> 
+
+  <tr>
+    <td>Non-deterministic Couplings Definition </td>
+    <td>Section 2.5</td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a><br />
+      <a href="discprob.idxval.irrel_coupling_alt.html">proba/theories/idxval/irrel_coupling_alt.v</a><br /></td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_couplingP">
+	       irrel_couplingP</a>
+      <a href="discprob.idxval.irrel_coupling_alt.html#idist_pidist_couplingP'">
+	       idist_pidist_couplingP'</a>
+    </td>
+    <td>Again, for historical reasons, the development primarily uses
+      <a href="discprob.idxval.irrel_equiv.html#irrel_couplingP">
+	       irrel_couplingP</a>, which is what is called a "non-deterministic
+	       coupling up to irrelevance" in the original submitted
+	       appendix. However, the definition currently given in the paper
+	       corresponds
+	       to <a href="discprob.idxval.irrel_equiv.html#idist_pidist_couplingP'">
+	       idist_pidist_couplingP'</a> which seems more natural to us in
+	       hindsight (because one does not need to first introduce a
+	       different notion and then quotient to get the "up to irrelevance"
+	       version).
+      <a href="discprob.idxval.irrel_coupling_alt.html#irrel_couplingP_to_alt">irrel_couplingP_to_alt</a>
+      and
+      <a href="discprob.idxval.irrel_coupling_alt.html#alt_to_irrel_couplingP">alt_to_irrel_couplingP</a> show that these definitions are equivalent. Note that these are stated as records, and for technical reasons it's sometimes easier to use a version that is a proposition, <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_propP">irrel_coupling_propP</a>
+      
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Rules for Non-deterministic Couplings</td>
+    <td>Section 2.5, Fig. 7</td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a></td>
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_mret">
+	       irrel_coupling_mret</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_proper">
+	       irrel_coupling_proper</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_conseq">
+	       irrel_coupling_conseq</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_plus">
+	       irrel_coupling_plus</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_trivial">
+	       irrel_coupling_trivial</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Theorem 2.2</td>
+    <td>Section 2.5</td>
+    <td> <a href="discprob.idxval.irrel_equiv.html">proba/theories/idxval/irrel_equiv.v</a></td>
+										  
+    <td>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_eq_ex_Ex_supp">
+	       irrel_coupling_eq_ex_Ex_supp</a>,
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_eq_Ex_min_supp">
+	       irrel_coupling_eq_Ex_min_supp</a>
+      <a href="discprob.idxval.irrel_equiv.html#irrel_coupling_eq_Ex_max_supp">
+	       irrel_coupling_eq_Ex_max_supp</a>,
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Language Per-Thread Head Step Reduction</td>
+    <td>Section 3.1, Fig. 8</td>
+    <td> <a href="iris.heap_lang.lang.html">theories/heap_lang/lang.v</a></td>
+    <td> 
+       <a href="iris.heap_lang.lang.html#heap_lang.head_step">head_step</a>,
+       <a href="iris.heap_lang.lang.html#heap_lang.head_step_prob">head_step_prob</a>,
+       <a href="iris.heap_lang.lang.html#heap_lang.head_step_prob_rel">head_step_prob_rel</a>
+    </td>
+    <td>
+
+      The paper presents the semantics as a relation indexed by a
+      probability. For backwards compatibility reasons with Iris, we found it
+      easier to instead work with a plain reduction relation
+      (<a href="iris.heap_lang.lang.html#heap_lang.head_step">head_step</a>) and
+      a function which assigns probabilities to a reduction
+      (<a href="iris.heap_lang.lang.html#heap_lang.head_step_prob">head_step_prob</a>). However,
+      we also prove that this is equivalent to a version where the relation is
+      directly annotated with the probability
+      (<a href="iris.heap_lang.lang.html#heap_lang.head_step_prob_rel">head_step_prob_rel</a>).
+      (see the equivalence proofs <a href="iris.heap_lang.lang.html#heap_lang.head_step_prob_rel_to_fun">head_step_prob_rel_to_fun</a> and <a href="iris.heap_lang.lang.html#heap_lang.head_step_prob_to_rel">head_step_prob_to_rel</a>) <br /> <br />
+
+      The other main difference is that the paper just describes a single
+      primitive called "flip" for simulating Bernoulli random variables. To make
+      it easier to add other primitives to the language, we allow various probabilistic operations (<a href="iris.heap_lang.lang.html#heap_lang.prob_bin_op">prob_bin_op</a>) to be added (which are supposed to represent different distributions, possibly taking some parameters), and then the semantics of these operations are specified by giving an indexed valuation that they represent (<a href="iris.heap_lang.lang.html#heap_lang.prob_bin_op_eval">prob_bin_op_eval</a>).
+
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Concurrent Thread Reduction</td>
+    <td>Section 3.1, Fig. 8</td>
+    <td> <a href="iris.program_logic.language.html">theories/program_logic/language.v</a><br />
+       <a href="iris.program_logic.prob_language.html">theories/program_logic/prob_language.v</a></td>
+    <td> 
+       <a href="iris.program_logic.language.html#istep">istep</a>,
+       <a href="iris.program_logic.prob_language.html#trace_step">trace_step</a>,
+    </td>
+    <td>
+
+      These are for a "generic" language satisfying certain axioms, of which the example language we give is one of them (as is done in regular Iris). Again, the paper presents them annotated with a probability, but it is just easier in Coq to give the non-annotated version, and then we subsequently define the indexed valuation representing the probabilistic transition system (see next entry).
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Probabilistic Thread Reduction as an Indexed Valuation</td>
+    <td>Section 3.1</td>
+    <td>
+      <a href="iris.program_logic.prob_language.html">theories/program_logic/prob_language.v</a></td>
+    <td> 
+       <a href="iris.program_logic.prob_language.html#ivdist_trace_stepN_aux">ivdist_trace_stepN_aux</a>,
+       <a href="iris.program_logic.prob_language.html#ivdist_tpool_stepN">ivdist_tpool_stepN</a>,
+    </td>
+    <td> Note that it returns the whole threadpool and state rather than just the first thread. The version written on paper would have to be partial unless we used dependent types to ensure the number of threads never goes to 0. It seemed useful to be able to possibly make claims about probabilistic aspects of state rather than just the first thread in the future.
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Definition of bounded termination under a scheduler</td>
+    <td>Section 3.1</td>
+    <td>
+      <a href="iris.program_logic.prob_language.html">theories/program_logic/prob_language.v</a>
+    </td>
+    <td> 
+       <a href="iris.program_logic.prob_language.html#terminates">terminates</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Background on Iris</td>
+    <td>Section 3.2</td>
+    <td> (various) <br />
+      <a href="iris.heap_lang.lifting.html">theories/heap_lang/lifting.v</a> <br />
+      <a href="iris.program_logic.weakestpre.html">theories/program_logic/weakestpre.v</a> <br />
+      <a href="iris.algebra.frac_auth.html">theories/algebra/frac_auth.v</a></td>
+    <td> 
+      (various)
+    </td>
+    <td>
+      Iris actually uses weakest preconditions rather than Hoare triples. The various rules shown here are simplified or derived forms of other rules from Iris. It would take a very long time to document the Iris development in this outline. Since the information here is about aspects of Iris that are preserved unchanged in our extensions, it seems less important to do so as part of this artifact guide.
+    </td>
+  </tr> 
+
+  <tr>
+    <td>New Probabilistic Rules</td>
+    <td>Section 3.3, Fig. 12</td>
+    <td>
+      <a href="iris.heap_lang.lifting.html">theories/heap_lang/lifting.v</a><br />
+      <a href="iris.program_logic.prob_lifting.html">theories/program_logic/prob_lifting.v</a>
+    </td>
+    <td> 
+      <a href="iris.heap_lang.lifting.html#wp_flip">wp_flip</a>,
+      <a href="iris.heap_lang.lifting.html#wp_irrel_flip">wp_irrel_flip</a>,
+      <a href="iris.program_logic.prob_lifting.html#ownProb_anti_irrel'">ownProb_anti_irrel'</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Theorem 3.1</td>
+    <td>Section 3.4</td>
+    <td>
+      <a href="iris.heap_lang.adequacy.html">theories/heap_lang/adequacy.v</a><br />
+    </td>
+    <td> 
+      <a href="iris.heap_lang.adequacy.html#heap_prob_adequacy_Ex_max">heap_prob_adequacy_Ex_max</a>
+      <a href="iris.heap_lang.adequacy.html#heap_prob_adequacy_Ex_min">heap_prob_adequacy_Ex_min</a>
+    </td>
+    <td>
+      These are stated in terms of weakest preconditions instead of the Hoare triple formulation in the paper, in keeping with the normal approach in Iris. Also note that the function f has type Val -> R. By assumption, the program terminates in at most n steps, and the normal adequacy statement for Iris ensures that the first thread in the pool will therefore be a value, so this makes sense. However, to convince Coq of that, we would have to define a variant of ivdist_tpool_stepN that would ensure that the first thread in the pool is indeed a value under these additional assumptions. <br /><br />
+
+      Instead, we define a
+      function <a href="iris.heap_lang.adequacy.html#coerce_cfg">coerce_cfg</a>
+      which lifts a function from val -> R to a function from arbitrary program
+      configurations to R by applying an arbitrary default value in the case
+      that the the first thread in the pool is not a value. The adequacy
+      statements quantify over this d, showing that the bounds do not depend on
+      what we pick for this arbitrary value.
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Approximate counter algorithm</td>
+    <td>Section 1.1, Fig 1(c)</td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html">theories/tests/approx_counter/faa_approx_counter.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#newcounter">newcounter</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#incr">incr</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#read">read</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Approximate counter rules</td>
+    <td>Section 4.1, Fig. 13</td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html">theories/tests/approx_counter/faa_approx_counter.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#newcounter_spec'">newcounter_spec'</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Acounter_sep">Acounter_sep</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#Acounter_join">Acounter_join</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#incr_spec'">incr_spec'</a>,
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#read_spec'">read_spec'</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Example client for Approximate Counter</td>
+    <td>Section 4.1, Fig. 14</td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html">theories/tests/approx_counter/faa_approx_counter.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#list_client">list_client</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter.html#list_client_Ex_ival">list_client_Ex_ival</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Variations of Approximate Counter Example</td>
+    <td>Section 4.3</td>
+    <td>
+      <a href="iris.tests.approx_counter.faa_approx_counter_nomax.html">theories/tests/approx_counter/faa_approx_counter_nomax.v</a>
+      <a href="iris.tests.approx_counter.faa_approx_counter_nomax.html">theories/tests/approx_counter/faa_approx_counter_arb.v</a>
+    </td>
+    <td> 
+      (various)
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Skiplist Code</td>
+    <td>Section 5.1</td>
+    <td>
+      <a href="iris.tests.skiplist.code.html">theories/tests/skiplist/code.v</a>
+    </td>
+    <td> 
+      (entire file)
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Skiplist Monadic Model</td>
+    <td>Section 5.2</td>
+    <td>
+      <a href="iris.tests.skiplist.idxval.html">theories/tests/skiplist/idxval.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.skiplist.idxval.html#skiplist">skiplist</a>
+    </td>
+    <td>
+      Note that it is more complicated looking than the version in the paper because what is written in the paper is not structurally recursive, so we have to include additional information to convince Coq that it is terminating.
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Expected value for Skiplist Monadic Model</td>
+    <td>Section 5.2</td>
+    <td>
+      <a href="iris.tests.skiplist.idxval_expected.html">theories/tests/skiplist/idxval_expected.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.skiplist.idxval_expected.html#Skiplist_Expected.skiplist_Ex_max">skiplist_Ex_max</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Rules for Skiplist</td>
+    <td>Section 5.3, Fig. 17</td>
+    <td>
+      <a href="iris.tests.skiplist.spec_bundled.html">theories/tests/skiplist/spec_bundled.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.new_spec">new_spec</a>,
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.add_spec">add_spec</a>,
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.mem_full_spec">mem_full_spec</a>,
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.skip_prop_sep">skip_prop_sep</a>,
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.skip_prop_join">skip_prop_join</a>
+      <a href="iris.tests.skiplist.spec_bundled.html#Skiplist_Spec.skip_prob_spec'">skip_prob_spec'</a>
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+  <tr>
+    <td>Example client for Skiplist</td>
+    <td>Section 5.3, mentioned but not shown</td>
+    <td>
+      <a href="iris.tests.skiplist.client.html">theories/tests/skiplist/client.v</a>
+    </td>
+    <td> 
+      <a href="iris.tests.skiplist.client.html#skip_list_client">skip_list_client</a>,
+      <a href="iris.tests.skiplist.client.html#list_client_Ex_ival">list_client_Ex_ival</a>,
+    </td>
+    <td>
+    </td>
+  </tr> 
+
+</table>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

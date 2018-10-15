@@ -1,0 +1,12 @@
+*.v.d
+*.vo
+*.vio
+*.v~
+*.glob
+*.aux
+*.csdp.cache
+*.lia.cache
+*.nia.cache
+*.nra.cache
+.coqdeps.d
+Makefile.conf

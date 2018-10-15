@@ -1,0 +1,14 @@
+*.pdf
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.txss
+*.thm
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+_*_.tex
+auto/*.el
