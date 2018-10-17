@@ -321,6 +321,34 @@ Proof.
   subst => //=.
 Qed.
 
+Lemma wp_lift_step_nocouple s E Φ e1 :
+  to_val e1 = None →
+  (∀ σ1, state_interp σ1 ={E,∅}=∗
+    ⌜if s is NotStuck then reducible e1 σ1 else True⌝ ∗
+    ▷ ∀ e2 σ2 efs,
+      ⌜prim_step e1 σ1 e2 σ2 efs⌝  ={∅,E}=∗
+      state_interp σ2 ∗ WP e2 @ s; E {{ Φ }} ∗
+      [∗ list] ef ∈ efs, WP ef @ s; ⊤ {{ _, True }})
+  ⊢ WP e1 @ s; E {{ Φ }}.
+Proof.
+  iIntros (?) "H". iApply (wp_lift_step s E _ e1)=>//; iIntros (σ1 c1) "(Hσ1&Ha)".
+  iMod ("H" $! σ1 with "Hσ1") as "[$ H]".
+  iModIntro; iNext.
+  destruct c1 as (X&Ix).
+  unshelve(
+  iExists {| choice_hd_type := unit;
+             choice_hd_pidist := mret tt;
+             choice_cont := (λ x, _);
+             choice_equiv := _;
+             choice_post := λ x y, True;
+             choice_coupling := irrel_coupling_trivial _ _|}).
+  { exact Ix. } 
+  { rewrite //=. setoid_rewrite pidist_left_id. reflexivity. }
+  iIntros (e2 σ2 efs c3) "%".
+  iMod ("H" $! e2 σ2 efs with "[#]") as "($ & HΦ & $)"; first by eauto.
+  iModIntro. iSplitR "Ha"; auto.
+Qed.
+
 Lemma wp_lift_atomic_step_couple {X Y} s E Φ e1 (Is: pidist X) (g: X → pidist Y) R:
   to_val e1 = None →
    ▷ ownProb (x ← Is; g x) ∗ (∀ σ1, state_interp σ1 ={E,∅}=∗

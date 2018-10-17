@@ -385,6 +385,15 @@ Theorem wp_prob_adequacy {Y} `{invPreG Σ} `{@probPreG Λ Σ}
    { eauto. }
 Qed.
 
+Definition coerce_cfg {Λ : probLanguage} (f: language.val Λ → R) (r: R) (ρ: cfg Λ) : R :=
+  match fst ρ with
+  | [] => r
+  | e :: _ => match to_val e with
+              | Some v => f v 
+              | _ => r
+              end
+  end.
+
 Theorem wp_prob_adequacy' {Y} `{invPreG Σ} `{@probPreG Λ Σ}
         e σ φ  Is sch n:
   (∀`{Hinv: invG Σ},
@@ -425,6 +434,74 @@ Theorem wp_prob_adequacy' {Y} `{invPreG Σ} `{@probPreG Λ Σ}
    { eauto. }
    { eauto. }
 Qed.
+
+Import Rbar.
+From discprob.idxval Require Import extrema.
+
+Theorem wp_prob_adequacy_Ex_max {Y} `{invPreG Σ} `{@probPreG Λ Σ}
+        e σ φ (Is: pidist Y) sch f g d n:
+  (∀`{Hinv: invG Σ},
+      (|={⊤}=> ∃ (stateI: _ → iProp Σ), ∀ pname,
+      let _ : probG' Σ := ProbG Σ Hinv pname _ in
+      let _ : stateG' Λ Σ := StateG Λ Σ stateI in
+      stateI σ ∗ (ownProb Is -∗
+             WP e {{ v, ∃ (v' : Y), ownProb (mret v') ∗ ⌜φ v v'⌝ }}))%I) →
+  (∀ v v', φ v v' → f v = g v') →
+  terminates sch (((e :: nil), σ) :: nil) n →
+  bounded_fun_on g (λ x, In_psupport x Is) →
+  Rbar_le (extrema.Ex_ival (coerce_cfg f d) (ivdist_tpool_stepN sch [e] σ n))
+          (extrema.Ex_max g Is).
+Proof.
+  rewrite /coerce_cfg.
+  intros. apply irrel_coupling_eq_Ex_max_supp; eauto.
+  eapply irrel_coupling_conseq; last eapply wp_prob_adequacy'; eauto.
+  { intros x y. rewrite /coupling_post.
+    destruct x as (l&?). destruct l => //=.
+    destruct to_val => //=. eauto. }
+Qed.
+
+Theorem wp_prob_adequacy_Ex_min {Y} `{invPreG Σ} `{@probPreG Λ Σ}
+        e σ φ (Is: pidist Y) sch f g d n:
+  (∀`{Hinv: invG Σ},
+      (|={⊤}=> ∃ (stateI: _ → iProp Σ), ∀ pname,
+      let _ : probG' Σ := ProbG Σ Hinv pname _ in
+      let _ : stateG' Λ Σ := StateG Λ Σ stateI in
+      stateI σ ∗ (ownProb Is -∗
+             WP e {{ v, ∃ (v' : Y), ownProb (mret v') ∗ ⌜φ v v'⌝ }}))%I) →
+  (∀ v v', φ v v' → f v = g v') →
+  terminates sch (((e :: nil), σ) :: nil) n →
+  bounded_fun_on g (λ x, In_psupport x Is) →
+  Rbar_le (extrema.Ex_min g Is)
+          (extrema.Ex_ival (coerce_cfg f d) (ivdist_tpool_stepN sch [e] σ n)).
+Proof.
+  rewrite /coerce_cfg.
+  intros. apply irrel_coupling_eq_Ex_min_supp; eauto.
+  eapply irrel_coupling_conseq; last eapply wp_prob_adequacy'; eauto.
+  { intros x y. rewrite /coupling_post.
+    destruct x as (l&?). destruct l => //=.
+    destruct to_val => //=. eauto. }
+ Qed.
+
+Theorem wp_prob_adequacy_ex_Ex {Y} `{invPreG Σ} `{@probPreG Λ Σ}
+        e σ φ (Is: pidist Y) sch f g d n:
+  (∀`{Hinv: invG Σ},
+      (|={⊤}=> ∃ (stateI: _ → iProp Σ), ∀ pname,
+      let _ : probG' Σ := ProbG Σ Hinv pname _ in
+      let _ : stateG' Λ Σ := StateG Λ Σ stateI in
+      stateI σ ∗ (ownProb Is -∗
+             WP e {{ v, ∃ (v' : Y), ownProb (mret v') ∗ ⌜φ v v'⌝ }}))%I) →
+  (∀ v v', φ v v' → f v = g v') →
+  terminates sch (((e :: nil), σ) :: nil) n →
+  bounded_fun_on g (λ x, In_psupport x Is) →
+  ex_Ex_ival (coerce_cfg f d) (ivdist_tpool_stepN sch [e] σ n).
+Proof.
+  rewrite /coerce_cfg.
+  intros. eapply irrel_coupling_eq_ex_Ex_supp; eauto.
+  eapply irrel_coupling_conseq; last eapply wp_prob_adequacy'; eauto.
+  { intros x y. rewrite /coupling_post.
+    destruct x as (l&?). destruct l => //=.
+    destruct to_val => //=. eauto. }
+ Qed.
 
 Theorem wp_prob_safety_adequacy Σ Λ `{invPreG Σ} `{@probPreG Λ Σ} {X} (Is: pidist X) s e σ φ :
   (∀ `{Hinv : invG Σ},

@@ -1,4 +1,4 @@
-From iris.program_logic Require Export weakestpre adequacy.
+From iris.program_logic Require Export weakestpre adequacy prob_adequacy.
 From iris.heap_lang Require Export lifting.
 From iris.algebra Require Import auth.
 From iris.heap_lang Require Import proofmode notation.
@@ -65,30 +65,6 @@ Qed.
 Require Import Reals.
 Import Rbar.
 From discprob.idxval Require Import extrema ival_dist.
-
-Definition coerce_cfg (f: val → R) (r: R) (ρ: cfg heap_lang) : R :=
-  match fst ρ with
-  | [] => r
-  | e :: _ => match prob_language.to_val e with
-              | Some v => f v 
-              | _ => r
-              end
-  end.
-
-(*
-Definition coerce_cfg P (f: { v : val | P v} → R) (r: R) (ρ: cfg heap_lang) : R :=
-  match fst ρ with
-  | [] => r
-  | e :: _ => match prob_language.to_val e with
-              | Some v =>
-                match (ClassicalEpsilon.excluded_middle_informative (P v)) with
-                | left Hpf => f (exist _ v Hpf)
-                | _ => r
-                end
-              | _ => r
-              end
-  end.
-*)
 
 Definition heap_prob_adequacy_Ex_max Σ `{heapPreG Σ} {X} (Is: pidist X) e σ sch n f g d:
   terminates sch [([e], σ)] n →

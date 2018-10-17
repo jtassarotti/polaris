@@ -791,7 +791,7 @@ Proof.
     * apply pspec_bounded. eexists. apply approx_n_bounded.
 Qed.
 
-Lemma generic_client_cheybshev n sch e σ k δ:
+Lemma generic_client_chebyshev n sch e σ k δ:
   (∀ `{heapG Σ} `{H: probG Σ},
     ownProb (approx_n n 0) -∗
    WP e {{ v, ∃ v' : nat, ownProb (mret v') ∗ ⌜v = #v'⌝ }})%I →
