@@ -32,8 +32,8 @@ of axioms used in the development).
 
 ## Clickable HTML Correspondence Table
 
-The file [outline.html](outline.html) provides a table giving a correspondence between
-definitions/theorems in the (revised) paper and their location in the Coq
+The files [outline.html](outline.html) and [outline-diss.html](outline-diss.html) provide a table giving a correspondence between
+definitions/theorems in the (revised) paper/dissertation and their location in the Coq
 development, as suggested in the [Proof Artifact Guidelines](https://docs.google.com/document/d/18IOZR_-zFUDB-2KT-VSDTcl3suge_bSX2758W1kHm5o/edit#heading=h.632p0wk53q0m)
 by Marianna Rapoport. Clickable links are given to spots in the HTML version of the
 development produced using coqdoc. These should be prebuilt in versions of
