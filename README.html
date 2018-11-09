@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1 id="polaris-coq-development">POLARIS COQ DEVELOPMENT</h1>
-<p>This is the Coq development of Polaris, an extension of the <a href="http://iris-project.org">Iris Project</a> to support probabilistic relational reasoning. The following README is adapted in part from that of the original Iris development.</p>
+<p>This is the Coq development of Polaris, an extension of the <a href="http://iris-project.org">Iris Project</a> to support probabilistic relational reasoning. The code includes commits from Iris up through Iris version 3.1.0. The following README is adapted in part from that of the original Iris development.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>This version is known to compile with the following opam packages:</p>
 <ul>
@@ -21,13 +21,12 @@
 <li>coq-interval 3.4.0</li>
 <li>coq-bignums 8.8.0</li>
 </ul>
-<p>When building from source, we recommend to use opam (1.2.2 or newer) for installing Iris's dependencies. This requires the following two repositories:</p>
-<pre><code>opam repo add coq-released https://coq.inria.fr/opam/released
-opam repo add iris-dev https://gitlab.mpi-sws.org/FP/opam-dev.git</code></pre>
+<p>When building from source, we recommend to use opam (1.2.2 or newer) for installing dependencies. This requires adding the following repository:</p>
+<pre><code>opam repo add coq-released https://coq.inria.fr/opam/released</code></pre>
 <p>You then should be able to run <code>make build-dep</code> to get these dependencies installed.</p>
 <p>Run <code>make -jN</code> to build the full development, where <code>N</code> is the number of your CPU cores. (WARNING: the examples can take a long time to build). If you do so, one of the files will print axioms used for a small example proof (see below for the list of axioms used in the development).</p>
 <h2 id="clickable-html-correspondence-table">Clickable HTML Correspondence Table</h2>
-<p>The files <a href="outline.html" class="uri">outline.html</a> and <a href="outline-diss.html" class="uri">outline-diss.html</a> provide a table giving a correspondence between definitions/theorems in the (revised) paper/dissertation and their location in the Coq development, as suggested in the <a href="https://docs.google.com/document/d/18IOZR_-zFUDB-2KT-VSDTcl3suge_bSX2758W1kHm5o/edit#heading=h.632p0wk53q0m">Proof Artifact Guidelines</a> by Marianna Rapoport. Clickable links are given to spots in the HTML version of the development produced using coqdoc. These should be prebuilt in versions of this package built for artifact review, but if they do not exist, you can create them by running <code>make html</code> after building the development.</p>
+<p>The files <a href="outline.html" class="uri">outline.html</a> and <a href="outline-diss.html" class="uri">outline-diss.html</a> provide a table giving a correspondence between definitions/theorems in the paper and the first author's dissertation (forthcoming) and their location in the Coq development, as suggested in the <a href="https://docs.google.com/document/d/18IOZR_-zFUDB-2KT-VSDTcl3suge_bSX2758W1kHm5o/edit#heading=h.632p0wk53q0m">Proof Artifact Guidelines</a> by Marianna Rapoport. Clickable links are given to spots in the HTML version of the development produced using coqdoc. These should be prebuilt in versions of this package built for artifact archival, but if they do not exist, you can create them by running <code>make html</code> after building the development.</p>
 <h2 id="axioms">Axioms</h2>
 <p>The following list of axioms is produced when executing the <code>Print Assumptions</code> command in <a href="theories/tests/prob_heap_lang.v" class="uri">theories/tests/prob_heap_lang.v</a>:</p>
 <pre><code>Axioms:

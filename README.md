@@ -1,9 +1,10 @@
 # POLARIS COQ DEVELOPMENT
 
 This is the Coq development of Polaris, an extension of the [Iris
-Project](http://iris-project.org)  to support probabilistic relational
-reasoning. The following README is adapted in part from that of the original
-Iris development.
+Project](http://iris-project.org) to support probabilistic relational
+reasoning. The code includes commits from Iris up through Iris version
+3.1.0. The following README is adapted in part from that of the original Iris
+development.
 
 ## Prerequisites
 
@@ -18,10 +19,9 @@ This version is known to compile with the following opam packages:
  - coq-bignums                        8.8.0
 
 When building from source, we recommend to use opam (1.2.2 or newer) for
-installing Iris's dependencies.  This requires the following two repositories:
+installing dependencies.  This requires adding the following repository:
 
     opam repo add coq-released https://coq.inria.fr/opam/released
-    opam repo add iris-dev https://gitlab.mpi-sws.org/FP/opam-dev.git
 
 You then should be able to run `make build-dep` to get these dependencies installed.
 
@@ -33,11 +33,11 @@ of axioms used in the development).
 ## Clickable HTML Correspondence Table
 
 The files [outline.html](outline.html) and [outline-diss.html](outline-diss.html) provide a table giving a correspondence between
-definitions/theorems in the (revised) paper/dissertation and their location in the Coq
+definitions/theorems in the paper and the first author's dissertation (forthcoming) and their location in the Coq
 development, as suggested in the [Proof Artifact Guidelines](https://docs.google.com/document/d/18IOZR_-zFUDB-2KT-VSDTcl3suge_bSX2758W1kHm5o/edit#heading=h.632p0wk53q0m)
 by Marianna Rapoport. Clickable links are given to spots in the HTML version of the
 development produced using coqdoc. These should be prebuilt in versions of
-this package built for artifact review, but if they do not exist, you can
+this package built for artifact archival, but if they do not exist, you can
 create them by running `make html` after building the development.
 
 ## Axioms
