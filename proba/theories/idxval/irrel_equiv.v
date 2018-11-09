@@ -739,6 +739,19 @@ Proof.
   - done.
 Qed.
 
+Lemma irrel_coupling_mono_irrel' {A1 A2} (I1 I2 : ivdist A1) (Is1 Is2: pidist A2) P:
+  irrel_ivd I1 I2 → 
+  irrel_pidist Is1 Is2 → 
+  irrel_couplingP I1 Is1 P → 
+  irrel_couplingP I2 Is2 P.
+Proof.
+  intros HeqI HeqIs [I1' Is1' HeqI1 HeqIs1 Hcouple].
+  exists I1' Is1'.
+  - setoid_rewrite <-HeqI. done.
+  - setoid_rewrite <-HeqIs. done.
+  - done.
+Qed.
+
 Global Instance irrel_coupling_prop_Proper {A1 A2}:
   Proper (@eq_ivd A1 ==> @le_pidist A2 ==> eq ==> impl) irrel_coupling_propP.
 Proof.
